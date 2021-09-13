@@ -1,0 +1,187 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="{% static "favicon.ico" %}">
+    <title>视频搜索结果</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body background="{% static "background3.jpg" %}">
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#" style="color: bisque">  ——于雨琛-Acfun！——  </a>
+        </div>
+        <div>
+            <ul class="nav navbar-nav nav">
+                <li><a href="../content">视频列表</a></li>
+                <li><a href="../authorlist">作者列表</a></li>
+                <li class="active" style="right: auto"><a href="../Search">搜索</a></li>
+            </ul>
+        </div>
+        </div>
+    </nav>
+    <br>
+    <br>
+    <br>
+    <br>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-lg-4">
+                <h1>"{{ video_name }}"搜索结果：</h1>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-6 col-lg-6">
+                <h4>共{{ count }}条结果，用时{{ time }}秒</h4>
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="row">
+            {% for i in page.object_list %}
+            <div class="col-md-2">
+                <div class="thumbnail">
+                    <a href="../content/detail/{{ i.id }}">
+                        <img alt="{{ i.视频名称 }}" src="{{ i.封面照片 }}" style="width:176px; height:99px">
+                    </a> <br>
+                    <div class="caption" style="height: 70px">
+                        <p>
+                            <a href="../content/detail/{{ i.id }}" style="max-height: 40px;font-size: 14px;line-height: 20px;text-align: left;display: -webkit-box;-webkit-line-clamp: 2;line-clamp: 2;-webkit-box-orient:vertical; white-space: pre-wrap;word-wrap: break-word;word-break: break-word;text-overflow: ellipsis;overflow: hidden;">{{ i.视频名称 }}</a>
+                        </p>
+                    </div>
+                </div>
+                <hr>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="row">
+            <nav style="text-align: center;">
+            <ul class="pagination form-inline pagination-lg">
+            {% if tot <= 10 %}
+                {% if page.number == 1 %}
+                    <li class="disabled"><a href="?page=1">&laquo;</a></li>
+                    {% for i in page.paginator.page_range %}
+                        {% if i == page.number %}
+                            <li class="active"><a href="?page={{ i }}">{{ i }}</a></li>
+                        {% else %}
+                            <li><a href="?page={{ i }}">{{ i }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    <li><a href="?page=2">&raquo;</a></li>
+                {% elif page.number == tot %}
+                    <li><a href="?page={{ page.previous_page_number }}">&laquo;</a></li>
+                    {% for i in page.paginator.page_range %}
+                        {% if i == page.number %}
+                            <li class="active"><a href="?page={{ i }}">{{ i }}</a></li>
+                        {% else %}
+                            <li><a href="?page={{ i }}">{{ i }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    <li class="disabled"><a href="?page=1">&raquo;</a></li>
+                {% else %}
+                    <li><a href="?page={{ page.previous_page_number }}">&laquo;</a></li>
+                    {% for i in page.paginator.page_range %}
+                        {% if i == page.number %}
+                            <li class="active"><a href="?page={{ i }}">{{ i }}</a></li>
+                        {% else %}
+                            <li><a href="?page={{ i }}">{{ i }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    <li><a href="?page={{ page.next_page_number }}">&raquo;</a></li>
+                {% endif %}
+            {% else %}
+                {% if page.number == 1 %}
+                    <li class="disabled"><a href="?page=1">&laquo;</a></li>
+                    <li class="active"><a href="?page=1">1</a></li>
+                    <li><a href="?page=2">2</a></li>
+                    <li><a href="?page=3">3</a></li>
+                    <li><a href="?page=4">4</a></li>
+                    <li><a href="?page=5">5</a></li>
+                    <li class="disabled"><a href="?page={{ tot }}">...</a></li>
+                    <li><a href="?page={{ tot }}">{{ tot }}</a></li>
+                    <li><a href="?page=2">&raquo;</a></li>
+                {% elif page.number == 2 %}
+                    <li><a href="?page=1">&laquo;</a></li>
+                    <li><a href="?page=1">1</a></li>
+                    <li class="active"><a href="?page=2">2</a></li>
+                    <li><a href="?page=3">3</a></li>
+                    <li><a href="?page=4">4</a></li>
+                    <li><a href="?page=5">5</a></li>
+                    <li class="disabled"><a href="?page={{ tot }}">...</a></li>
+                    <li><a href="?page={{ tot }}">{{ tot }}</a></li>
+                    <li><a href="?page=3">&raquo;</a></li>
+                {% elif page.number == 3 %}
+                    <li><a href="?page=2">&laquo;</a></li>
+                    <li><a href="?page=1">1</a></li>
+                    <li class="disabled"><a href="?page=1">...</a></li>
+                    <li class="active"><a href="?page=3">3</a></li>
+                    <li><a href="?page=4">4</a></li>
+                    <li><a href="?page=5">5</a></li>
+                    <li class="disabled"><a href="?page={{ tot }}">...</a></li>
+                    <li><a href="?page={{ tot }}">{{ tot }}</a></li>
+                    <li><a href="?page=4">&raquo;</a></li>
+                {% elif page.number == tot %}
+                    <li><a href="?page={{ page.previous_page_number }}">&laquo;</a></li>
+                    <li><a href="?page=1">1</a></li>
+                    <li class="disabled"><a href="?page=1">...</a></li>
+                    <li><a href="?page={{ Up4 }}">{{ Up4 }}</a></li>
+                    <li><a href="?page={{ Up3 }}">{{ Up3 }}</a></li>
+                    <li><a href="?page={{ Up2 }}">{{ Up2 }}</a></li>
+                    <li><a href="?page={{ Up1 }}">{{ Up1 }}</a></li>
+                    <li class="active"><a href="?page={{ page.previous_page_number }}">{{ page.previous_page_number }}</a></li>
+                    <li class="disabled"><a href="?page=4">&raquo;</a></li>
+                {% elif page.number == Up1 %}
+                    <li><a href="?page={{ page.previous_page_number }}">&laquo;</a></li>
+                    <li><a href="?page=1">1</a></li>
+                    <li class="disabled"><a href="?page=1">...</a></li>
+                    <li><a href="?page={{ Up4 }}">{{ Up4 }}</a></li>
+                    <li><a href="?page={{ Up3 }}">{{ Up3 }}</a></li>
+                    <li><a href="?page={{ Up2 }}">{{ Up2 }}</a></li>
+                    <li class="active"><a href="?page={{ Up1 }}">{{ Up1 }}</a></li>
+                    <li><a href="?page={{ tot }}">{{ tot }}</a></li>
+                    <li><a href="?page={{ page.next_page_number }}">&raquo;</a></li>
+                {% elif page.number == Up2 %}
+                    <li><a href="?page={{ page.previous_page_number }}">&laquo;</a></li>
+                    <li><a href="?page=1">1</a></li>
+                    <li class="disabled"><a href="?page=1">...</a></li>
+                    <li class="active"><a href="?page=3">3</a></li>
+                    <li><a href="?page={{ Up4 }}">{{ Up4 }}</a></li>
+                    <li><a href="?page={{ Up3 }}">{{ Up3 }}</a></li>
+                    <li class="active"><a href="?page={{ Up2 }}">{{ Up2 }}</a></li>
+                    <li><a href="?page={{ Up1 }}">{{ Up1 }}</a></li>
+                    <li class="disabled"><a href="?page={{ tot }}">...</a></li>
+                    <li><a href="?page={{ tot }}">{{ tot }}</a></li>
+                    <li><a href="?page={{ page.next_page_number }}">&raquo;</a></li>
+                {% else %}
+                    <li><a href="?page={{ page.previous_page_number }}">&laquo;</a></li>
+                    <li><a href="?page=1">1</a></li>
+                    <li class="disabled"><a href="?page=1">...</a></li>
+                    <li><a href="?page={{ page.previous_page_number }}">{{ page.previous_page_number }}</a></li>
+                    <li class="active"><a href="?page={{ page.number }}">{{ page.number }}</a></li>
+                    <li><a href="?page={{ page.next_page_number }}">{{ page.next_page_number }}</a></li>
+                    <li class="disabled"><a href="?page={{ page.next_page_number }}">...</a></li>
+                    <li><a href="?page={{ tot }}">{{ tot }}</a></li>
+                    <li><a href="?page={{ page.next_page_number }}">&raquo;</a></li>
+                {% endif %}
+            {% endif %}
+            </ul>
+                <p style="color: black; font-size: 15px">跳转至</p><form method="post">{% csrf_token %}<input name="pagee" type="number" min="1" max="{{ tot }}" placeholder="页码" style="width: 100px"></form>
+            </nav>
+        </div>
+
+
+<br>
+<br>
+<br>
+
+</body>
+</html>

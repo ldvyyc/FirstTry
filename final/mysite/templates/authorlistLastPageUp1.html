@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+        <link rel="icon" href="{% static "favicon.ico" %}">
+    <title>AuthorList</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body background="{% static "background3.jpg" %}">
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#" style="color: bisque">  ——于雨琛-Acfun！——  </a>
+        </div>
+        <div>
+            <ul class="nav navbar-nav">
+                <li><a href="../content/0">视频列表</a></li>
+                <li class="active"><a href="../authorlist/0">作者列表</a></li>
+                <li><a href="../Search">搜索</a></li>
+            </ul>
+        </div>
+        </div>
+    </nav>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-lg-4">
+                <h2 style="font-family: 楷体; font-palette: dark; color: #f5e79e">共1005位作者</h2>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+
+    <div class="container">
+        <div class="row">
+            {% for i in data %}
+            <div class="col-md-2">
+                <div class="thumbnail">
+                    <a href="../author/{{ i.up主名称 }}">
+                        <img alt="{{ i.up主名称 }}" src="{{ i.up主头像 }}" class="" style="width: 176px;height: 99px">
+                    </a>
+                    <div class="caption" style="height: 120px">
+                        <h4  style="display: -webkit-box;-webkit-line-clamp: 1;line-clamp: 1;-webkit-box-orient:vertical; white-space: pre-wrap;word-wrap: break-word;word-break: break-word;text-overflow: ellipsis;overflow: hidden;"><a href="../author/{{ i.up主名称 }}" >{{ i.up主名称 }}</a></h4>
+                        <h5>{{ i.up主id }}</h5>
+                        <p style="max-height: 40px;font-size: 14px;line-height: 20px;text-align: left;display: -webkit-box;-webkit-line-clamp: 2;line-clamp: 2;-webkit-box-orient:vertical; white-space: pre-wrap;word-wrap: break-word;word-break: break-word;text-overflow: ellipsis;overflow: hidden;">{{ i.up主介绍 }}</p>
+                    </div>
+                </div>
+                <hr>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <div class="row">
+            <nav style="text-align: center;">
+    <ul class="pagination form-inline pagination-lg" id="pageLimit">
+        <li><a href="930">&laquo;</a></li>
+        <li><a href="0">1</a></li>
+        <li class="disabled"><a href="">...</a></li>
+        <li><a href="870">30</a></li>
+        <li><a href="900">31</a></li>
+        <li><a href="930">32</a></li>
+        <li class="active"><a href="960">33</a></li>
+        <li><a href="990">34</a></li>
+        <li><a href="990">&raquo;</a></li>
+    </ul>
+        <p style="color: black; font-size: 15px">跳转至</p><form method="post">{% csrf_token %}<input name="pagee" type="number" min="1" max="34" placeholder="页码" style="width: 100px"></form>
+    </nav>
+    </div>
+<br>
+<br>
+<br>
+
+
+</body>
+</html>
